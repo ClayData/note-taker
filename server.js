@@ -50,11 +50,31 @@ app.post("/api/notes", function(req, res) {
     });
 })
 
-app.delete("/api/notes:id", function(req, res) {
-    
-    
-    res.json(true)
+app.delete("/api/notes/:id", function(req, res) {
+    let oldNote = req.params.id;
+    // console.log(oldNote);
+    // console.log(notesList[1].id)
+    deleteNote(oldNote);
+
+
+    fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notesList), function(err, data) {
+        
+        if (err) throw err;
+        res.end(data);
+    });
 })
+
+function deleteNote(id){
+
+    for(let i = 0; i < notesList.length; i++){
+        if(notesList[i].id === parseInt(id)){
+            delete(notesList[i].title);
+            delete(notesList[i].name);
+            delete(notesList[i].id);
+            
+        }
+    }
+}
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
