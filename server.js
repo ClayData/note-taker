@@ -13,7 +13,7 @@ fs.readFile("db/db.json", "utf8", function(error, data) {
     if (error) {
       return console.log(error);
     }
-
+    
     notesList = JSON.parse(data);
     
 });
@@ -52,8 +52,7 @@ app.post("/api/notes", function(req, res) {
 
 app.delete("/api/notes/:id", function(req, res) {
     let oldNote = req.params.id;
-    // console.log(oldNote);
-    // console.log(notesList[1].id)
+    
     deleteNote(oldNote);
 
 
@@ -68,10 +67,7 @@ function deleteNote(id){
 
     for(let i = 0; i < notesList.length; i++){
         if(notesList[i].id === parseInt(id)){
-            delete(notesList[i].title);
-            delete(notesList[i].name);
-            delete(notesList[i].id);
-            
+            notesList.splice(i, 1);
         }
     }
 }
