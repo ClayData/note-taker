@@ -39,7 +39,7 @@ app.get("/api/notes", function(req, res){
 
 app.post("/api/notes", function(req, res) {
     let newNote = (req.body);
-    newNote.id = notesList.length;
+    newNote.id = Math.floor(Math.random() * 1000000);
     res.json(true);
     notesList.push(newNote);
     
